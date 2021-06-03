@@ -31,7 +31,7 @@ public class CustomerServiceImpl implements CustomerService {
                 return response;
             }
             for (Customer customer: customerList){
-                RespCustomer respCustomer = getCustomerById(customer.getCustomerId());
+                RespCustomer respCustomer = new RespCustomer(customer);
                 respCustomerList.add(respCustomer);
             }
             response.setRespCustomerList(respCustomerList);
@@ -56,11 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
                 response.setStatus(new RespStatus(ExceptionConstans.CUSTOMER_NOT_FOUND, "Customer not found Exception"));
                 return response;
             }
-            response.setCustomerId(customer.getCustomerId());
-            response.setCustomerName(customer.getCustomerSurname());
-            response.setCustomerSurname(customer.getCustomerSurname());
-            response.setActive(customer.getActive());
-            response.setDataDate(customer.getDataDate());
+            response = new RespCustomer(customer);
             response.setStatus(RespStatus.getSuccesMessage());
         }catch (Exception e){
             e.printStackTrace();
@@ -75,18 +71,12 @@ public class CustomerServiceImpl implements CustomerService {
     public RespStatus addCustomer(ReqCustomer reqCustomer) {
         RespStatus status = null;
         try{
-            Long id = reqCustomer.getCustomerId();
-            String name = reqCustomer.getCustomerName();
-            String surname = reqCustomer.getCustomerSurname();
-            Integer active = reqCustomer.getActive();
-            if (name == null || surname == null) {
+            Customer customer = new Customer(reqCustomer);
+            if (customer.getCustomerName() == null || customer.getCustomerSurname() == null
+            || customer.getCustomerId() ==null) {
                 return new RespStatus(ExceptionConstans.INVALID_REQUEST_EXCEPTION, "Ivalid request data");
             }
-            Customer customer = new Customer();
-            customer.setCustomerId(id);
-            customer.setCustomerName(name);
-            customer.setCustomerSurname(surname);
-            customer.setActive(active);
+
             customerDao.save(customer);
             status = RespStatus.getSuccesMessage();
         }catch (Exception e){
@@ -102,7 +92,6 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             String name = reqCustomer.getCustomerName();
             String surname = reqCustomer.getCustomerSurname();
-            Integer active = reqCustomer.getActive();
             Long customerId = reqCustomer.getCustomerId();
             if (name == null || surname == null) {
                 return new RespStatus(ExceptionConstans.INVALID_REQUEST_EXCEPTION, "Ivalid request data");
@@ -113,7 +102,6 @@ public class CustomerServiceImpl implements CustomerService {
             }
             customer.setCustomerName(name);
             customer.setCustomerSurname(surname);
-            customer.setActive(active);
             customerDao.save(customer);
             status = RespStatus.getSuccesMessage();
         }catch (Exception e){

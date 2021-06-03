@@ -3,6 +3,7 @@ package com.example.shoppingpay.request;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
 
+import java.sql.Date;
 
 
 @Data
@@ -11,5 +12,5 @@ public class ReqCustomer {
     private Long customerId;
     private String customerName;
     private String customerSurname;
-    private Integer active;
+    private Date dob;
 }

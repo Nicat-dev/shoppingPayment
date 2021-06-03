@@ -1,12 +1,15 @@
 package com.example.shoppingpay.model;
 
+import com.example.shoppingpay.request.ReqOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
+import java.sql.Date;
 
 @Data
 @NoArgsConstructor
@@ -28,7 +31,12 @@ public class Orders{
     private Customer customer;
     @ColumnDefault(value = "1")
     private Integer active;
+    @CreationTimestamp
+    private Date dataDate;
 
-
-
+    public Orders(ReqOrder reqOrder) {
+        this.orderId = reqOrder.getOrderId();
+        this.orderName = reqOrder.getOrderName();
+        this.orderQuantity = reqOrder.getOrderQuantity();
+    }
 }

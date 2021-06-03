@@ -12,5 +12,4 @@ public class ReqOrder {
     private Integer orderQuantity;
     private Long productId;
     private Long customerId;
-    private Integer active;
 }

@@ -19,8 +19,8 @@ public class RespProduct {
     @JsonProperty(value = "CraetedAt")
     private Date respProductDate;
     @JsonProperty(value = "price")
-    private Float respProductPrice;
-    @JsonProperty("active")
+    private Double respProductPrice;
+    @JsonProperty(value = "active")
     private Integer respActive;
 
     private RespStatus status;

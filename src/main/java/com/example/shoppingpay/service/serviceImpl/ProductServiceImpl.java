@@ -75,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             Long id = reqProduct.getProductId();
             String name = reqProduct.getProductName();
-            Float productPrice = reqProduct.getProductPrice();
+            Double productPrice = reqProduct.getProductPrice();
             if (name == null || productPrice == null) {
                 return new RespStatus(ExceptionConstans.INVALID_REQUEST_EXCEPTION, "Ivalid request data");
             }
@@ -100,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
         try{
             Long id = reqProduct.getProductId();
             String name = reqProduct.getProductName();
-            Float price = reqProduct.getProductPrice();
+            Double price = reqProduct.getProductPrice();
             Integer active = reqProduct.getActive();
             if (name == null || id == null) {
                 return new RespStatus(ExceptionConstans.INVALID_REQUEST_EXCEPTION, "Ivalid request data");

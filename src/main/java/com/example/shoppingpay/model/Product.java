@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @Entity
@@ -23,7 +23,7 @@ public class Product {
     private String productName;
     @CreationTimestamp
     private Date productDate;
-    private Float productPrice;
+    private Double productPrice;
     @ColumnDefault(value = "1")
     private Integer active;
 }

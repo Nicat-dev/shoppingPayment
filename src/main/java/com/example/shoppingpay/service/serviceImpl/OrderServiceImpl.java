@@ -72,9 +72,7 @@ public class OrderServiceImpl implements OrderService {
                 response.setStatus(new RespStatus(ExceptionConstans.ORDER_NOT_FOUND, "Orders not found Exception"));
                 return response;
             }
-            response.setRespOrderName(order.getOrderName());
-            response.setRespOrderQuantity(order.getOrderQuantity());
-            response.setRespActive(order.getActive());
+            response = new RespOrder(order);
             RespCustomer customer = customerService.getCustomerById(order.getCustomer().getCustomerId());
             response.setRespCustomer(customer);
             RespProduct product = productService.getProductById(order.getProduct().getProductId());
@@ -96,7 +94,6 @@ public class OrderServiceImpl implements OrderService {
             Integer quantity = reqOrder.getOrderQuantity();
             Long productId = reqOrder.getProductId();
             Long customerId = reqOrder.getCustomerId();
-            Integer active = reqOrder.getActive();
             if (name == null || quantity == null) {
                 return new RespStatus(ExceptionConstans.INVALID_REQUEST_EXCEPTION, "Ivalid request data");
             }
@@ -113,7 +110,6 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderQuantity(quantity);
             order.setProduct(product);
             order.setCustomer(customer);
-            order.setActive(active);
             orderDao.save(order);
             status = RespStatus.getSuccesMessage();
         } catch (Exception e) {
@@ -132,7 +128,6 @@ public class OrderServiceImpl implements OrderService {
             Integer orderQuantity = reqOrder.getOrderQuantity();
             Long productId = reqOrder.getProductId();
             Long customerId = reqOrder.getCustomerId();
-            Integer active = reqOrder.getActive();
             if (orderId == null || productId == null) {
                 return new RespStatus(ExceptionConstans.INVALID_REQUEST_EXCEPTION, "Ivalid request data");
             }
@@ -152,7 +147,6 @@ public class OrderServiceImpl implements OrderService {
             order.setOrderQuantity(orderQuantity);
             order.setCustomer(customer);
             order.setProduct(product);
-            order.setActive(active);
             orderDao.save(order);
             status = RespStatus.getSuccesMessage();
         }catch (Exception e){
